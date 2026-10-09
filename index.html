@@ -1,293 +1,545 @@
 
+
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ElectroShop DZ</title>
+<title>ElectroShop DZ | متجر الأجهزة الكهرومنزلية</title>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f5f6f8;color:#172235}
-header{background:#101b2b;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:25px;font-weight:bold;color:#e7bd72}
-nav a{color:white;text-decoration:none;margin:8px}
-.hero{padding:75px 7%;background:linear-gradient(90deg,#101b2bdf,#101b2b55),url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1400&q=80') center/cover;color:white}
-.hero h1{font-size:42px;max-width:550px}
-button,.btn{background:#e7bd72;color:#101b2b;border:0;padding:12px 18px;border-radius:7px;cursor:pointer;font-weight:bold}
-.container{max-width:1200px;margin:auto;padding:30px 5%}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px #0001;padding-bottom:18px;transition:.25s}
-.card:hover{transform:translateY(-5px)}
-.card img{width:100%;height:190px;object-fit:cover}
-.card h3,.card p{padding:0 15px}
-.price{font-size:20px;font-weight:bold;color:#b47b20}
-.card button{margin-left:15px}
-form,.adminbox{background:white;padding:25px;border-radius:12px;box-shadow:0 4px 15px #0001}
-input,select,textarea{width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ccc;border-radius:6px}
-label{font-weight:bold}
-#admin{display:none}
-table{border-collapse:collapse;width:100%;background:white;min-width:850px}
-th,td{padding:12px;border:1px solid #ddd;text-align:left}
-th{background:#101b2b;color:white}
-.tablewrap{overflow:auto}
-footer{background:#101b2b;color:white;text-align:center;padding:30px;margin-top:35px}
-footer a{color:#e7bd72}
-.hidden{display:none}
+body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#f4f7fb;color:#17243a;line-height:1.8}
+html{scroll-behavior:smooth}
+a{text-decoration:none;color:inherit}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;border:0;border-radius:9px;padding:10px 16px;font-weight:bold}
+.container{width:92%;max-width:1150px;margin:auto}
+header{background:#102440;color:white;padding:15px 0;position:sticky;top:0;z-index:5}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
+.logo{font-size:24px;font-weight:bold}
+.logo span{color:#ffb52e}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a:hover{color:#ffb52e}
+.hero{background:linear-gradient(130deg,#102440,#176eb1);color:white;padding:55px 0}
+.hero h1{font-size:clamp(28px,4vw,44px);line-height:1.5;margin:0}
+.hero p{max-width:650px;color:#e3edfa}
+.btn{background:#176eb1;color:white}
+.btn:hover{opacity:.9}
+.gold{background:#ffb52e;color:#17243a}
+section{padding:35px 0}
+h2{color:#102440}
+.section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.categories{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+.categories button{background:white;border:1px solid #dbe3ed}
+.categories button.active{background:#102440;color:white}
+.products{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.card{background:white;border:1px solid #e0e7ef;border-radius:15px;overflow:hidden;box-shadow:0 5px 18px #1024400b}
+.product-icon{height:155px;display:grid;place-items:center;background:#e9f4ff;font-size:70px}
+.card-content{padding:15px}
+.card h3{margin:5px 0}
+.muted{color:#66758a;font-size:13px}
+.price{font-size:19px;color:#176eb1;font-weight:bold}
+.old-price{color:#8b95a3;text-decoration:line-through;font-size:13px;margin-right:8px}
+.card button{width:100%;margin-top:10px}
+.offer{background:#fff1d9;border-radius:14px;padding:20px;margin-top:22px}
+.layout{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:start}
+.panel{background:white;border:1px solid #e0e7ef;border-radius:15px;padding:22px}
+.panel h3{margin-top:0;color:#102440}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field.full{grid-column:1/-1}
+label{font-size:14px;font-weight:bold}
+input,select,textarea{width:100%;padding:11px;border:1px solid #d7e0ea;border-radius:8px;background:white}
+textarea{min-height:85px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid #b7dcff;border-color:#176eb1}
+.summary{background:#102440;color:white;border-radius:15px;padding:22px}
+.summary p{color:#dce8f6}
+.summary-row{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #ffffff2a;padding:10px 0}
+.notice{display:none;padding:12px;border-radius:9px;margin-bottom:15px}
+.notice.show{display:block}
+.success{background:#e3f7e9;color:#17643a}
+.error{background:#ffe8e8;color:#a11b1b}
+footer{background:#0b192d;color:white;padding:30px 0;margin-top:25px}
+footer p{color:#c6d3e3;font-size:13px}
+footer button{background:transparent;color:#c6d3e3;text-decoration:underline}
+.modal-bg{display:none;position:fixed;inset:0;background:#061326c9;z-index:20;padding:15px;overflow:auto}
+.modal-bg.open{display:block}
+.modal{max-width:950px;margin:35px auto;background:white;padding:22px;border-radius:15px}
+.modal-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.close{background:#e9eef5}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
+.stat{background:#edf5fc;border-radius:10px;padding:12px}
+.stat strong{display:block;font-size:21px;color:#102440}
+.table-wrap{overflow:auto}
+table{width:100%;border-collapse:collapse;min-width:700px;font-size:12px}
+th,td{text-align:right;padding:10px;border-bottom:1px solid #e0e7ef;vertical-align:top}
+th{background:#edf3f9}
+.admin-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+@media(max-width:850px){.products{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}}
+@media(max-width:520px){nav{gap:10px;font-size:13px}.logo{font-size:20px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.products{gap:9px}.product-icon{height:115px;font-size:55px}.card-content{padding:10px}.stats{grid-template-columns:1fr}.hero{padding:35px 0}}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">⌂ ElectroShop DZ</div>
-  <nav>
-    <a href="#home">Accueil</a>
-    <a href="#products">Produits</a>
-    <a href="#order">Commander</a>
-    <a href="#contact">Contact</a>
-  </nav>
+<div class="container nav">
+<a href="#home" class="logo">⚡ ElectroShop <span>DZ</span></a>
+<nav>
+<a href="#home">الرئيسية</a>
+<a href="#products">المنتجات</a>
+<a href="#offers">العروض</a>
+<a href="#order">اطلب الآن</a>
+</nav>
+<button class="gold" onclick="goToOrder()">🛒 إتمام الطلب</button>
+</div>
 </header>
 
+<main>
 <section class="hero" id="home">
-  <h1>Tout pour votre maison au meilleur prix</h1>
-  <p>Découvrez nos appareils électroménagers et nos promotions.</p>
-  <a class="btn" href="#products">Découvrir nos produits</a>
+<div class="container">
+<h1>كل ما يحتاجه منزلك<br>في متجر واحد</h1>
+<p>اكتشف مجموعة متنوعة من الأجهزة الكهرومنزلية بأسعار مناسبة وعروض مميزة. اختر منتجاتك وأرسل طلبك بسهولة.</p>
+<button class="gold" onclick="document.getElementById('products').scrollIntoView()">اكتشف منتجاتنا</button>
+</div>
 </section>
 
-<main class="container">
-  <h2 id="products">Nos produits et promotions</h2>
-  <div class="products" id="productList"></div>
+<section id="products">
+<div class="container">
+<div class="section-title">
+<div>
+<h2>منتجاتنا</h2>
+<p class="muted">اختر المنتج الذي يناسب احتياجاتك.</p>
+</div>
+</div>
 
-  <h2 id="order" style="margin-top:45px">Passer une commande</h2>
-  <form id="orderForm">
-    <label>Nom et prénom *</label>
-    <input id="customerName" required placeholder="Votre nom complet">
+<div class="categories">
+<button class="active" onclick="filterProducts('الكل',this)">جميع المنتجات</button>
+<button onclick="filterProducts('المطبخ',this)">أجهزة المطبخ</button>
+<button onclick="filterProducts('التنظيف',this)">أجهزة التنظيف</button>
+<button onclick="filterProducts('التبريد',this)">التبريد</button>
+<button onclick="filterProducts('التلفاز',this)">التلفاز والترفيه</button>
+</div>
 
-    <label>Numéro de téléphone *</label>
-    <input id="phone" required type="tel" placeholder="05 / 06 / 07...">
+<div class="products" id="productsGrid"></div>
 
-    <label>Wilaya *</label>
-    <select id="wilaya" required>
-      <option value="">Choisir votre wilaya</option>
-    </select>
+<div class="offer" id="offers">
+<h3>🎁 عروض خاصة</h3>
+<p>اختر جهازك وأرسل طلبك. سنتواصل معك لتأكيد السعر والتوفر وتفاصيل التوصيل.</p>
+<button class="btn" onclick="goToOrder()">استكمال الطلب</button>
+</div>
+</div>
+</section>
 
-    <label>Commune *</label>
-    <input id="commune" required placeholder="Votre commune">
+<section id="order">
+<div class="container">
+<h2>إتمام الطلب</h2>
+<p class="muted">يرجى إدخال معلومات صحيحة حتى نتمكن من التواصل معك.</p>
 
-    <label>Adresse complète *</label>
-    <input id="address" required placeholder="Adresse de livraison">
+<div class="layout">
+<div class="panel">
+<h3>معلومات الزبون</h3>
+<div id="formNotice" class="notice"></div>
 
-    <label>Produit *</label>
-    <select id="product" required></select>
+<form id="orderForm">
+<div class="form-grid">
 
-    <label>Quantité</label>
-    <input id="quantity" type="number" min="1" max="20" value="1" required>
+<div class="field">
+<label for="name">الاسم واللقب *</label>
+<input id="name" required maxlength="100" placeholder="أدخل اسمك الكامل">
+</div>
 
-    <label>Remarque</label>
-    <textarea id="notes" placeholder="Informations supplémentaires"></textarea>
+<div class="field">
+<label for="phone">رقم الهاتف *</label>
+<input id="phone" required type="tel" maxlength="20" placeholder="مثال: 0550 00 00 00">
+</div>
 
-    <h3 id="total">Total : 0 DA</h3>
-    <button type="submit">Confirmer la commande</button>
-  </form>
+<div class="field">
+<label for="wilaya">الولاية *</label>
+<select id="wilaya" required>
+<option value="">اختر الولاية</option>
+</select>
+</div>
 
-  <section id="admin" style="margin-top:45px">
-    <h2>Administration ElectroShop</h2>
-    <p>Liste des commandes enregistrées sur cet appareil.</p>
-    <button onclick="exportCSV()">Exporter les commandes CSV</button>
-    <button onclick="logout()" style="background:#ddd">Déconnexion</button>
-    <div class="tablewrap" style="margin-top:20px">
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th><th>Nom</th><th>Téléphone</th>
-            <th>Wilaya</th><th>Commune</th><th>Adresse</th>
-            <th>Produit</th><th>Qté</th><th>Total</th><th>Remarque</th>
-          </tr>
-        </thead>
-        <tbody id="ordersTable"></tbody>
-      </table>
-    </div>
-  </section>
+<div class="field">
+<label for="commune">البلدية *</label>
+<input id="commune" required maxlength="100" placeholder="اسم البلدية">
+</div>
 
-  <section class="adminbox" id="adminLogin" style="margin-top:35px">
-    <h2>Accès Administration</h2>
-    <p>Réservé au propriétaire du magasin.</p>
-    <label>Email administrateur</label>
-    <input id="adminEmail" type="email" placeholder="admin@electroshop.dz">
-    <label>Mot de passe</label>
-    <input id="adminPassword" type="password" placeholder="Mot de passe">
-    <button onclick="login()">Se connecter</button>
-    <p id="loginMessage"></p>
-  </section>
+<div class="field full">
+<label for="address">العنوان بالتفصيل *</label>
+<input id="address" required maxlength="250" placeholder="الحي والشارع ورقم المنزل">
+</div>
 
-  <section id="contact" style="margin-top:45px">
-    <h2>Contactez-nous</h2>
-    <p>WhatsApp et téléphone : remplacez par votre numéro.</p>
-    <a class="btn" href="https://wa.me/213XXXXXXXXX">WhatsApp</a>
-  </section>
+<div class="field">
+<label for="product">المنتج المطلوب *</label>
+<select id="product" required>
+<option value="">اختر المنتج</option>
+</select>
+</div>
+
+<div class="field">
+<label for="quantity">الكمية *</label>
+<input id="quantity" type="number" min="1" max="20" value="1" required>
+</div>
+
+<div class="field full">
+<label for="notes">ملاحظات إضافية</label>
+<textarea id="notes" maxlength="500" placeholder="معلومات إضافية (اختياري)"></textarea>
+</div>
+
+<div class="field full">
+<button class="btn" type="submit">تأكيد الطلب</button>
+<p class="muted">السعر النهائي والتوصيل يخضعان للتأكيد من طرف المتجر.</p>
+</div>
+
+</div>
+</form>
+</div>
+
+<aside class="summary">
+<h3>ملخص الطلب</h3>
+<p>راجع اختيارك قبل تأكيد الطلب.</p>
+<div class="summary-row"><span>المنتج</span><strong id="sumProduct">لم يتم الاختيار</strong></div>
+<div class="summary-row"><span>الكمية</span><strong id="sumQty">1</strong></div>
+<div class="summary-row"><span>السعر التقديري</span><strong id="sumTotal">0 دج</strong></div>
+<hr style="border-color:#ffffff30">
+<button style="width:100%;background:white;color:#102440" onclick="openAdmin()">⚙️ لوحة تحكم المدير</button>
+<p style="font-size:12px;margin-top:15px">هذه النسخة تجريبية، والطلبات تحفظ في المتصفح الحالي فقط.</p>
+</aside>
+</div>
+</div>
+</section>
 </main>
 
 <footer>
-  <div class="logo">ElectroShop DZ</div>
-  <p>Votre confort, notre priorité.</p>
-  <p>© 2026 ElectroShop DZ — Tous droits réservés.</p>
-  <a href="#adminLogin">Administration</a>
+<div class="container">
+<h3>⚡ ElectroShop DZ</h3>
+<p>متجرك للأجهزة الكهرومنزلية في الجزائر.</p>
+<p>الهاتف: أضف رقم هاتف المتجر قبل نشر الموقع.</p>
+<p>© <span id="year"></span> ElectroShop DZ — جميع الحقوق محفوظة.</p>
+<button onclick="openAdmin()">دخول المدير</button>
+</div>
 </footer>
 
+<div class="modal-bg" id="adminModal">
+<div class="modal">
+<div class="modal-head">
+<h2>لوحة تحكم المدير</h2>
+<button class="close" onclick="closeAdmin()">إغلاق ✕</button>
+</div>
+<div id="adminContent"></div>
+</div>
+</div>
+
 <script>
-/* MODIFIEZ CES INFORMATIONS AVANT UTILISATION */
-const ADMIN_EMAIL = "admin@electroshop.dz";
-const ADMIN_PASSWORD = "ChangeMoi123!";
-const WHATSAPP_NUMBER = "213XXXXXXXXX";
+const ADMIN_EMAIL = "alimektoub22@gmail.com";
+const ADMIN_PASSWORD = "alishop2026";
+const STORAGE_KEY = "electroshop_orders";
 
 const products = [
- {name:'Téléviseur Smart TV 55 pouces',price:89900,old:109900,image:'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=700&q=80'},
- {name:'Réfrigérateur 450 L',price:79900,old:89900,image:'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=700&q=80'},
- {name:'Machine à laver 8 kg',price:59900,old:69900,image:'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=700&q=80'},
- {name:'Climatiseur 12000 BTU',price:68500,old:75000,image:'https://images.unsplash.com/photo-1631545806609-6c1b5a4f4f91?auto=format&fit=crop&w=700&q=80'},
- {name:'Four électrique',price:24900,old:28900,image:'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=700&q=80'},
- {name:'Robot de cuisine',price:15900,old:18900,image:'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=700&q=80'}
+{id:1,name:"ثلاجة عائلية",category:"التبريد",icon:"🧊",price:89000,old:99000},
+{id:2,name:"غسالة ملابس",category:"التنظيف",icon:"🧺",price:57000,old:64000},
+{id:3,name:"فرن كهربائي",category:"المطبخ",icon:"♨️",price:18500,old:22000},
+{id:4,name:"خلاط كهربائي",category:"المطبخ",icon:"🥤",price:6500,old:7900},
+{id:5,name:"مكنسة كهربائية",category:"التنظيف",icon:"🧹",price:14500,old:16900},
+{id:6,name:"تلفاز ذكي",category:"التلفاز",icon:"📺",price:62000,old:70000},
+{id:7,name:"مكيف هواء",category:"التبريد",icon:"❄️",price:76000,old:85000},
+{id:8,name:"آلة قهوة",category:"المطبخ",icon:"☕",price:9800,old:11900}
 ];
 
 const wilayas = [
-"Adrar","Chlef","Laghouat","Oum El Bouaghi","Batna","Béjaïa",
-"Biskra","Béchar","Blida","Bouira","Tamanrasset","Tébessa",
-"Tlemcen","Tiaret","Tizi Ouzou","Alger","Djelfa","Jijel",
-"Sétif","Saïda","Skikda","Sidi Bel Abbès","Annaba","Guelma",
-"Constantine","Médéa","Mostaganem","M'Sila","Mascara","Ouargla",
-"Oran","El Bayadh","Illizi","Bordj Bou Arréridj","Boumerdès",
-"El Tarf","Tindouf","Tissemsilt","El Oued","Khenchela",
-"Souk Ahras","Tipaza","Mila","Aïn Defla","Naâma",
-"Aïn Témouchent","Ghardaïa","Relizane","Timimoun",
-"Bordj Badji Mokhtar","Ouled Djellal","Béni Abbès","In Salah",
-"In Guezzam","Touggourt","Djanet","El M'Ghair","El Meniaa"
+"01 - أدرار","02 - الشلف","03 - الأغواط","04 - أم البواقي",
+"05 - باتنة","06 - بجاية","07 - بسكرة","08 - بشار",
+"09 - البليدة","10 - البويرة","11 - تمنراست","12 - تبسة",
+"13 - تلمسان","14 - تيارت","15 - تيزي وزو","16 - الجزائر",
+"17 - الجلفة","18 - جيجل","19 - سطيف","20 - سعيدة",
+"21 - سكيكدة","22 - سيدي بلعباس","23 - عنابة","24 - قالمة",
+"25 - قسنطينة","26 - المدية","27 - مستغانم","28 - المسيلة",
+"29 - معسكر","30 - ورقلة","31 - وهران","32 - البيض",
+"33 - إليزي","34 - برج بوعريريج","35 - بومرداس","36 - الطارف",
+"37 - تندوف","38 - تيسمسيلت","39 - الوادي","40 - خنشلة",
+"41 - سوق أهراس","42 - تيبازة","43 - ميلة","44 - عين الدفلى",
+"45 - النعامة","46 - عين تموشنت","47 - غرداية","48 - غليزان",
+"49 - تيميمون","50 - برج باجي مختار","51 - أولاد جلال",
+"52 - بني عباس","53 - عين صالح","54 - عين قزام","55 - تقرت",
+"56 - جانت","57 - المغير","58 - المنيعة","59 - أفلو",
+"60 - بريكة","61 - القنطرة","62 - بئر العاتر","63 - العريشة",
+"64 - قصر الشلالة","65 - عين وسارة","66 - مسعد",
+"67 - قصر البخاري","68 - بوسعادة","69 - الأبيض سيدي الشيخ"
 ];
 
-const money = n => Number(n).toLocaleString('fr-DZ');
-const list = document.getElementById('productList');
-const productSelect = document.getElementById('product');
+let adminLoggedIn = false;
 
-products.forEach((p,i)=>{
- list.innerHTML += `<article class="card">
- <img src="${p.image}" alt="${p.name}">
- <h3>${p.name}</h3>
- <p><span class="price">${money(p.price)} DA</span>
- <br><del>${money(p.old)} DA</del></p>
- <button onclick="selectProduct(${i})">Commander</button>
- </article>`;
- productSelect.add(new Option(p.name,p.name));
-});
-
-wilayas.forEach((w,i)=>document.getElementById('wilaya').add(new Option((i+1)+' - '+w,w)));
-
-function selectProduct(i){
- productSelect.selectedIndex=i;
- document.getElementById('order').scrollIntoView({behavior:'smooth'});
- updateTotal();
+function money(n){
+ return new Intl.NumberFormat("ar-DZ").format(n)+" دج";
 }
-
-function updateTotal(){
- const p=products.find(x=>x.name===productSelect.value);
- const q=Number(document.getElementById('quantity').value)||1;
- document.getElementById('total').textContent='Total : '+money(p?p.price*q:0)+' DA';
-}
-productSelect.addEventListener('change',updateTotal);
-document.getElementById('quantity').addEventListener('input',updateTotal);
 
 function getOrders(){
- try{return JSON.parse(localStorage.getItem('electroshop_orders')||'[]')}
+ try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]")}
  catch(e){return []}
 }
+
 function saveOrders(orders){
- localStorage.setItem('electroshop_orders',JSON.stringify(orders));
+ localStorage.setItem(STORAGE_KEY,JSON.stringify(orders));
 }
 
-document.getElementById('orderForm').addEventListener('submit',function(e){
- e.preventDefault();
- const p=products.find(x=>x.name===productSelect.value);
- const q=Number(document.getElementById('quantity').value);
- if(!p||q<1)return;
-
- const order={
- date:new Date().toLocaleString('fr-DZ'),
- name:document.getElementById('customerName').value.trim(),
- phone:document.getElementById('phone').value.trim(),
- wilaya:document.getElementById('wilaya').value,
- commune:document.getElementById('commune').value.trim(),
- address:document.getElementById('address').value.trim(),
- product:p.name,quantity:q,total:p.price*q,
- notes:document.getElementById('notes').value.trim()
- };
-
- const orders=getOrders();
- orders.push(order);
- saveOrders(orders);
-
- const message=`Commande ElectroShop DZ
-Nom: ${order.name}
-Téléphone: ${order.phone}
-Wilaya: ${order.wilaya}
-Commune: ${order.commune}
-Adresse: ${order.address}
-Produit: ${order.product}
-Quantité: ${q}
-Total: ${money(order.total)} DA
-Remarque: ${order.notes||'Aucune'}`;
-
- alert('Commande enregistrée dans ce navigateur. WhatsApp va s’ouvrir pour envoyer les informations au magasin.');
- window.open('https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(message),'_blank');
- this.reset();
- updateTotal();
-});
-
-function login(){
- const email=document.getElementById('adminEmail').value;
- const password=document.getElementById('adminPassword').value;
- if(email===ADMIN_EMAIL && password===ADMIN_PASSWORD){
-  document.getElementById('admin').style.display='block';
-  document.getElementById('adminLogin').style.display='none';
-  renderOrders();
-  document.getElementById('admin').scrollIntoView({behavior:'smooth'});
- }else{
-  document.getElementById('loginMessage').textContent='Email ou mot de passe incorrect.';
- }
-}
-
-function logout(){
- document.getElementById('admin').style.display='none';
- document.getElementById('adminLogin').style.display='block';
- document.getElementById('adminPassword').value='';
- document.getElementById('adminLogin').scrollIntoView({behavior:'smooth'});
-}
-
-function renderOrders(){
- const body=document.getElementById('ordersTable');
- body.replaceChildren();
- getOrders().slice().reverse().forEach(o=>{
-  const tr=document.createElement('tr');
-  [o.date,o.name,o.phone,o.wilaya,o.commune,o.address,o.product,o.quantity,money(o.total)+' DA',o.notes].forEach(v=>{
-   const td=document.createElement('td');
-   td.textContent=v||'';
-   tr.appendChild(td);
-  });
-  body.appendChild(tr);
+function escapeHTML(value){
+ return String(value ?? "").replace(/[&<>"']/g,function(c){
+  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
  });
 }
 
-function exportCSV(){
- const orders=getOrders();
- if(!orders.length){alert('Aucune commande enregistrée.');return}
- const keys=['date','name','phone','wilaya','commune','address','product','quantity','total','notes'];
- const csv=[keys.join(';'),...orders.map(o=>keys.map(k=>'"'+String(o[k]??'').replace(/"/g,'""')+'"').join(';'))].join('\r\n');
- const a=document.createElement('a');
- a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
- a.download='commandes-electroshop.csv';
- a.click();
- URL.revokeObjectURL(a.href);
+function renderProducts(category="الكل"){
+ const grid=document.getElementById("productsGrid");
+ const list=category==="الكل"?products:products.filter(p=>p.category===category);
+
+ grid.innerHTML=list.map(p=>`
+ <article class="card">
+  <div class="product-icon">${p.icon}</div>
+  <div class="card-content">
+   <div class="muted">${p.category}</div>
+   <h3>${p.name}</h3>
+   <div class="price">${money(p.price)}</div>
+   <span class="old-price">${money(p.old)}</span>
+   <button class="btn" onclick="chooseProduct(${p.id})">اطلب الآن</button>
+  </div>
+ </article>
+ `).join("");
 }
 
-updateTotal();
+function filterProducts(category,button){
+ document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+ button.classList.add("active");
+ renderProducts(category);
+}
+
+function chooseProduct(id){
+ document.getElementById("product").value=String(id);
+ updateSummary();
+ goToOrder();
+}
+
+function goToOrder(){
+ document.getElementById("order").scrollIntoView({behavior:"smooth"});
+}
+
+function updateSummary(){
+ const p=products.find(x=>String(x.id)===document.getElementById("product").value);
+ const q=Math.max(1,Number(document.getElementById("quantity").value)||1);
+ document.getElementById("sumProduct").textContent=p?p.name:"لم يتم الاختيار";
+ document.getElementById("sumQty").textContent=q;
+ document.getElementById("sumTotal").textContent=p?money(p.price*q):money(0);
+}
+
+function showNotice(type,message){
+ const box=document.getElementById("formNotice");
+ box.className="notice show "+type;
+ box.textContent=message;
+}
+
+products.forEach(p=>{
+ const option=document.createElement("option");
+ option.value=p.id;
+ option.textContent=p.name+" — "+money(p.price);
+ document.getElementById("product").appendChild(option);
+});
+
+wilayas.forEach(w=>{
+ const option=document.createElement("option");
+ option.value=w;
+ option.textContent=w;
+ document.getElementById("wilaya").appendChild(option);
+});
+
+document.getElementById("product").addEventListener("change",updateSummary);
+document.getElementById("quantity").addEventListener("input",updateSummary);
+document.getElementById("year").textContent=new Date().getFullYear();
+
+document.getElementById("orderForm").addEventListener("submit",function(e){
+ e.preventDefault();
+
+ const p=products.find(x=>String(x.id)===document.getElementById("product").value);
+ const quantity=Number(document.getElementById("quantity").value);
+
+ if(!p){
+  showNotice("error","يرجى اختيار المنتج المطلوب.");
+  return;
+ }
+
+ if(!Number.isInteger(quantity)||quantity<1||quantity>20){
+  showNotice("error","يرجى إدخال كمية صحيحة من 1 إلى 20.");
+  return;
+ }
+
+ const order={
+  id:"DZ"+Date.now(),
+  date:new Date().toLocaleString("ar-DZ"),
+  name:document.getElementById("name").value.trim(),
+  phone:document.getElementById("phone").value.trim(),
+  wilaya:document.getElementById("wilaya").value,
+  commune:document.getElementById("commune").value.trim(),
+  address:document.getElementById("address").value.trim(),
+  product:p.name,
+  quantity:quantity,
+  total:p.price*quantity,
+  notes:document.getElementById("notes").value.trim(),
+  status:"جديد"
+ };
+
+ try{
+  const orders=getOrders();
+  orders.unshift(order);
+  saveOrders(orders);
+  showNotice("success","شكرًا لك! تم تسجيل الطلب في هذا المتصفح. رقم الطلب: "+order.id);
+  this.reset();
+  document.getElementById("quantity").value=1;
+  updateSummary();
+ }catch(error){
+  showNotice("error","تعذر حفظ الطلب. يرجى المحاولة مرة أخرى.");
+ }
+});
+
+function openAdmin(){
+ document.getElementById("adminModal").classList.add("open");
+ renderAdmin();
+}
+
+function closeAdmin(){
+ document.getElementById("adminModal").classList.remove("open");
+}
+
+function renderAdmin(){
+ const content=document.getElementById("adminContent");
+
+ if(!adminLoggedIn){
+  content.innerHTML=`
+   <p class="muted">سجّل الدخول لمشاهدة الطلبات المحفوظة في هذا المتصفح.</p>
+   <form id="loginForm" style="max-width:420px">
+    <div class="field">
+     <label for="adminEmail">البريد الإلكتروني</label>
+     <input id="adminEmail" type="email" required>
+    </div>
+    <div class="field" style="margin-top:12px">
+     <label for="adminPassword">كلمة المرور</label>
+     <input id="adminPassword" type="password" required>
+    </div>
+    <p id="loginError" class="notice error"></p>
+    <button class="btn" style="margin-top:15px">تسجيل الدخول</button>
+   </form>
+   <p class="muted">تنبيه: تسجيل الدخول في هذه النسخة تجريبي وغير آمن للإنتاج.</p>
+  `;
+
+  document.getElementById("loginForm").addEventListener("submit",function(e){
+   e.preventDefault();
+
+   if(document.getElementById("adminEmail").value===ADMIN_EMAIL &&
+      document.getElementById("adminPassword").value===ADMIN_PASSWORD){
+    adminLoggedIn=true;
+    renderAdmin();
+   }else{
+    const error=document.getElementById("loginError");
+    error.textContent="البريد الإلكتروني أو كلمة المرور غير صحيحة.";
+    error.classList.add("show");
+   }
+  });
+  return;
+ }
+
+ const orders=getOrders();
+ const total=orders.reduce((sum,o)=>sum+o.total,0);
+
+ content.innerHTML=`
+ <p class="muted">الطلبات الظاهرة هنا محفوظة في المتصفح الحالي فقط.</p>
+
+ <div class="stats">
+  <div class="stat">إجمالي الطلبات<strong>${orders.length}</strong></div>
+  <div class="stat">الطلبات الجديدة<strong>${orders.filter(o=>o.status==="جديد").length}</strong></div>
+  <div class="stat">قيمة الطلبات<strong>${money(total)}</strong></div>
+ </div>
+
+ <div class="admin-actions">
+  <button class="btn" onclick="exportOrders()">تصدير الطلبات CSV</button>
+  <button class="close" onclick="adminLoggedIn=false;renderAdmin()">تسجيل الخروج</button>
+  <button style="background:#ffe8e8;color:#a11b1b" onclick="clearOrders()">حذف جميع الطلبات</button>
+ </div>
+
+ <div class="table-wrap">
+ ${orders.length?`
+ <table>
+  <thead>
+   <tr>
+    <th>رقم الطلب والتاريخ</th>
+    <th>الزبون</th>
+    <th>العنوان</th>
+    <th>المنتج والكمية</th>
+    <th>المبلغ</th>
+    <th>الحالة</th>
+   </tr>
+  </thead>
+  <tbody>
+   ${orders.map(o=>`
+    <tr>
+     <td>${escapeHTML(o.id)}<br>${escapeHTML(o.date)}</td>
+     <td>${escapeHTML(o.name)}<br>${escapeHTML(o.phone)}</td>
+     <td>${escapeHTML(o.wilaya)}، ${escapeHTML(o.commune)}<br>${escapeHTML(o.address)}</td>
+     <td>${escapeHTML(o.product)} × ${o.quantity}<br>${escapeHTML(o.notes||"لا توجد ملاحظات")}</td>
+     <td>${money(o.total)}</td>
+     <td>
+      <select onchange="changeStatus('${o.id}',this.value)">
+       ${["جديد","تم التأكيد","قيد التوصيل","مكتمل","ملغى"].map(s=>`<option ${o.status===s?"selected":""}>${s}</option>`).join("")}
+      </select>
+     </td>
+    </tr>
+   `).join("")}
+  </tbody>
+ </table>
+ `:`<p>لا توجد طلبات حتى الآن.</p>`}
+ </div>
+
+ <p class="muted">لا تنتقل الطلبات إلى جهاز آخر تلقائيًا. يلزم ربط الموقع بقاعدة بيانات وخادم آمن لاستقبال طلبات الزبائن عبر الإنترنت.</p>
+ `;
+}
+
+function changeStatus(id,status){
+ const orders=getOrders();
+ const order=orders.find(o=>o.id===id);
+ if(order){
+  order.status=status;
+  saveOrders(orders);
+  renderAdmin();
+ }
+}
+
+function clearOrders(){
+ if(confirm("هل تريد حذف جميع الطلبات المحفوظة في هذا المتصفح؟")){
+  saveOrders([]);
+  renderAdmin();
+ }
+}
+
+function exportOrders(){
+ const orders=getOrders();
+ if(!orders.length){
+  alert("لا توجد طلبات لتصديرها.");
+  return;
+ }
+
+ const headers=["رقم الطلب","التاريخ","الاسم","الهاتف","الولاية","البلدية","العنوان","المنتج","الكمية","المجموع","الحالة","ملاحظات"];
+ const rows=orders.map(o=>[o.id,o.date,o.name,o.phone,o.wilaya,o.commune,o.address,o.product,o.quantity,o.total,o.status,o.notes]);
+ const csv="\uFEFF"+[headers,...rows].map(row=>row.map(value=>'"'+String(value??"").replace(/"/g,'""')+'"').join(";")).join("\r\n");
+ const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement("a");
+ a.href=url;
+ a.download="electroshop-orders.csv";
+ a.click();
+ URL.revokeObjectURL(url);
+}
+
+renderProducts();
+updateSummary();
 </script>
 </body>
 </html>
