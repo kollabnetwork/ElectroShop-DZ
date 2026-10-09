@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ElectroShop DZ</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f6f8;color:#172235}
+header{background:#101b2b;color:white;padding:20px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.logo{font-size:25px;font-weight:bold;color:#e7bd72}
+nav a{color:white;text-decoration:none;margin:8px}
+.hero{padding:75px 7%;background:linear-gradient(90deg,#101b2bdf,#101b2b55),url('https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=1400&q=80') center/cover;color:white}
+.hero h1{font-size:42px;max-width:550px}
+button,.btn{background:#e7bd72;color:#101b2b;border:0;padding:12px 18px;border-radius:7px;cursor:pointer;font-weight:bold}
+.container{max-width:1200px;margin:auto;padding:30px 5%}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px #0001;padding-bottom:18px;transition:.25s}
+.card:hover{transform:translateY(-5px)}
+.card img{width:100%;height:190px;object-fit:cover}
+.card h3,.card p{padding:0 15px}
+.price{font-size:20px;font-weight:bold;color:#b47b20}
+.card button{margin-left:15px}
+form,.adminbox{background:white;padding:25px;border-radius:12px;box-shadow:0 4px 15px #0001}
+input,select,textarea{width:100%;padding:12px;margin:6px 0 15px;border:1px solid #ccc;border-radius:6px}
+label{font-weight:bold}
+#admin{display:none}
+table{border-collapse:collapse;width:100%;background:white;min-width:850px}
+th,td{padding:12px;border:1px solid #ddd;text-align:left}
+th{background:#101b2b;color:white}
+.tablewrap{overflow:auto}
+footer{background:#101b2b;color:white;text-align:center;padding:30px;margin-top:35px}
+footer a{color:#e7bd72}
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">⌂ ElectroShop DZ</div>
+  <nav>
+    <a href="#home">Accueil</a>
+    <a href="#products">Produits</a>
+    <a href="#order">Commander</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <h1>Tout pour votre maison au meilleur prix</h1>
+  <p>Découvrez nos appareils électroménagers et nos promotions.</p>
+  <a class="btn" href="#products">Découvrir nos produits</a>
+</section>
+
+<main class="container">
+  <h2 id="products">Nos produits et promotions</h2>
+  <div class="products" id="productList"></div>
+
+  <h2 id="order" style="margin-top:45px">Passer une commande</h2>
+  <form id="orderForm">
+    <label>Nom et prénom *</label>
+    <input id="customerName" required placeholder="Votre nom complet">
+
+    <label>Numéro de téléphone *</label>
+    <input id="phone" required type="tel" placeholder="05 / 06 / 07...">
+
+    <label>Wilaya *</label>
+    <select id="wilaya" required>
+      <option value="">Choisir votre wilaya</option>
+    </select>
+
+    <label>Commune *</label>
+    <input id="commune" required placeholder="Votre commune">
+
+    <label>Adresse complète *</label>
+    <input id="address" required placeholder="Adresse de livraison">
+
+    <label>Produit *</label>
+    <select id="product" required></select>
+
+    <label>Quantité</label>
+    <input id="quantity" type="number" min="1" max="20" value="1" required>
+
+    <label>Remarque</label>
+    <textarea id="notes" placeholder="Informations supplémentaires"></textarea>
+
+    <h3 id="total">Total : 0 DA</h3>
+    <button type="submit">Confirmer la commande</button>
+  </form>
+
+  <section id="admin" style="margin-top:45px">
+    <h2>Administration ElectroShop</h2>
+    <p>Liste des commandes enregistrées sur cet appareil.</p>
+    <button onclick="exportCSV()">Exporter les commandes CSV</button>
+    <button onclick="logout()" style="background:#ddd">Déconnexion</button>
+    <div class="tablewrap" style="margin-top:20px">
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th><th>Nom</th><th>Téléphone</th>
+            <th>Wilaya</th><th>Commune</th><th>Adresse</th>
+            <th>Produit</th><th>Qté</th><th>Total</th><th>Remarque</th>
+          </tr>
+        </thead>
+        <tbody id="ordersTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="adminbox" id="adminLogin" style="margin-top:35px">
+    <h2>Accès Administration</h2>
+    <p>Réservé au propriétaire du magasin.</p>
+    <label>Email administrateur</label>
+    <input id="adminEmail" type="email" placeholder="admin@electroshop.dz">
+    <label>Mot de passe</label>
+    <input id="adminPassword" type="password" placeholder="Mot de passe">
+    <button onclick="login()">Se connecter</button>
+    <p id="loginMessage"></p>
+  </section>
+
+  <section id="contact" style="margin-top:45px">
+    <h2>Contactez-nous</h2>
+    <p>WhatsApp et téléphone : remplacez par votre numéro.</p>
+    <a class="btn" href="https://wa.me/213XXXXXXXXX">WhatsApp</a>
+  </section>
+</main>
+
+<footer>
+  <div class="logo">ElectroShop DZ</div>
+  <p>Votre confort, notre priorité.</p>
+  <p>© 2026 ElectroShop DZ — Tous droits réservés.</p>
+  <a href="#adminLogin">Administration</a>
+</footer>
+
+<script>
+/* MODIFIEZ CES INFORMATIONS AVANT UTILISATION */
+const ADMIN_EMAIL = "admin@electroshop.dz";
+const ADMIN_PASSWORD = "ChangeMoi123!";
+const WHATSAPP_NUMBER = "213XXXXXXXXX";
+
+const products = [
+ {name:'Téléviseur Smart TV 55 pouces',price:89900,old:109900,image:'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=700&q=80'},
+ {name:'Réfrigérateur 450 L',price:79900,old:89900,image:'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?auto=format&fit=crop&w=700&q=80'},
+ {name:'Machine à laver 8 kg',price:59900,old:69900,image:'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?auto=format&fit=crop&w=700&q=80'},
+ {name:'Climatiseur 12000 BTU',price:68500,old:75000,image:'https://images.unsplash.com/photo-1631545806609-6c1b5a4f4f91?auto=format&fit=crop&w=700&q=80'},
+ {name:'Four électrique',price:24900,old:28900,image:'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=700&q=80'},
+ {name:'Robot de cuisine',price:15900,old:18900,image:'https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=700&q=80'}
+];
+
+const wilayas = [
+"Adrar","Chlef","Laghouat","Oum El Bouaghi","Batna","Béjaïa",
+"Biskra","Béchar","Blida","Bouira","Tamanrasset","Tébessa",
+"Tlemcen","Tiaret","Tizi Ouzou","Alger","Djelfa","Jijel",
+"Sétif","Saïda","Skikda","Sidi Bel Abbès","Annaba","Guelma",
+"Constantine","Médéa","Mostaganem","M'Sila","Mascara","Ouargla",
+"Oran","El Bayadh","Illizi","Bordj Bou Arréridj","Boumerdès",
+"El Tarf","Tindouf","Tissemsilt","El Oued","Khenchela",
+"Souk Ahras","Tipaza","Mila","Aïn Defla","Naâma",
+"Aïn Témouchent","Ghardaïa","Relizane","Timimoun",
+"Bordj Badji Mokhtar","Ouled Djellal","Béni Abbès","In Salah",
+"In Guezzam","Touggourt","Djanet","El M'Ghair","El Meniaa"
+];
+
+const money = n => Number(n).toLocaleString('fr-DZ');
+const list = document.getElementById('productList');
+const productSelect = document.getElementById('product');
+
+products.forEach((p,i)=>{
+ list.innerHTML += `<article class="card">
+ <img src="${p.image}" alt="${p.name}">
+ <h3>${p.name}</h3>
+ <p><span class="price">${money(p.price)} DA</span>
+ <br><del>${money(p.old)} DA</del></p>
+ <button onclick="selectProduct(${i})">Commander</button>
+ </article>`;
+ productSelect.add(new Option(p.name,p.name));
+});
+
+wilayas.forEach((w,i)=>document.getElementById('wilaya').add(new Option((i+1)+' - '+w,w)));
+
+function selectProduct(i){
+ productSelect.selectedIndex=i;
+ document.getElementById('order').scrollIntoView({behavior:'smooth'});
+ updateTotal();
+}
+
+function updateTotal(){
+ const p=products.find(x=>x.name===productSelect.value);
+ const q=Number(document.getElementById('quantity').value)||1;
+ document.getElementById('total').textContent='Total : '+money(p?p.price*q:0)+' DA';
+}
+productSelect.addEventListener('change',updateTotal);
+document.getElementById('quantity').addEventListener('input',updateTotal);
+
+function getOrders(){
+ try{return JSON.parse(localStorage.getItem('electroshop_orders')||'[]')}
+ catch(e){return []}
+}
+function saveOrders(orders){
+ localStorage.setItem('electroshop_orders',JSON.stringify(orders));
+}
+
+document.getElementById('orderForm').addEventListener('submit',function(e){
+ e.preventDefault();
+ const p=products.find(x=>x.name===productSelect.value);
+ const q=Number(document.getElementById('quantity').value);
+ if(!p||q<1)return;
+
+ const order={
+ date:new Date().toLocaleString('fr-DZ'),
+ name:document.getElementById('customerName').value.trim(),
+ phone:document.getElementById('phone').value.trim(),
+ wilaya:document.getElementById('wilaya').value,
+ commune:document.getElementById('commune').value.trim(),
+ address:document.getElementById('address').value.trim(),
+ product:p.name,quantity:q,total:p.price*q,
+ notes:document.getElementById('notes').value.trim()
+ };
+
+ const orders=getOrders();
+ orders.push(order);
+ saveOrders(orders);
+
+ const message=`Commande ElectroShop DZ
+Nom: ${order.name}
+Téléphone: ${order.phone}
+Wilaya: ${order.wilaya}
+Commune: ${order.commune}
+Adresse: ${order.address}
+Produit: ${order.product}
+Quantité: ${q}
+Total: ${money(order.total)} DA
+Remarque: ${order.notes||'Aucune'}`;
+
+ alert('Commande enregistrée dans ce navigateur. WhatsApp va s’ouvrir pour envoyer les informations au magasin.');
+ window.open('https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(message),'_blank');
+ this.reset();
+ updateTotal();
+});
+
+function login(){
+ const email=document.getElementById('adminEmail').value;
+ const password=document.getElementById('adminPassword').value;
+ if(email===ADMIN_EMAIL && password===ADMIN_PASSWORD){
+  document.getElementById('admin').style.display='block';
+  document.getElementById('adminLogin').style.display='none';
+  renderOrders();
+  document.getElementById('admin').scrollIntoView({behavior:'smooth'});
+ }else{
+  document.getElementById('loginMessage').textContent='Email ou mot de passe incorrect.';
+ }
+}
+
+function logout(){
+ document.getElementById('admin').style.display='none';
+ document.getElementById('adminLogin').style.display='block';
+ document.getElementById('adminPassword').value='';
+ document.getElementById('adminLogin').scrollIntoView({behavior:'smooth'});
+}
+
+function renderOrders(){
+ const body=document.getElementById('ordersTable');
+ body.replaceChildren();
+ getOrders().slice().reverse().forEach(o=>{
+  const tr=document.createElement('tr');
+  [o.date,o.name,o.phone,o.wilaya,o.commune,o.address,o.product,o.quantity,money(o.total)+' DA',o.notes].forEach(v=>{
+   const td=document.createElement('td');
+   td.textContent=v||'';
+   tr.appendChild(td);
+  });
+  body.appendChild(tr);
+ });
+}
+
+function exportCSV(){
+ const orders=getOrders();
+ if(!orders.length){alert('Aucune commande enregistrée.');return}
+ const keys=['date','name','phone','wilaya','commune','address','product','quantity','total','notes'];
+ const csv=[keys.join(';'),...orders.map(o=>keys.map(k=>'"'+String(o[k]??'').replace(/"/g,'""')+'"').join(';'))].join('\r\n');
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
+ a.download='commandes-electroshop.csv';
+ a.click();
+ URL.revokeObjectURL(a.href);
+}
+
+updateTotal();
+</script>
+</body>
+</html>
